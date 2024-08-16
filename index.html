@@ -77,13 +77,34 @@
 
         }
         
-        .occupation, .work {
+        .occupation {
             font-size: 1.3em;
             font-weight: bold;
             opacity: 0.15;
             color: #6EACDA;
             font-family: 'Helvetica Neue', sans-serif;
+            top: 60%;
+            margin-top: 25px;
         }
+        
+        /* Media Query für kleinere Bildschirme */
+    @media (max-height: 600px) {
+        .name {
+            top: 35%; /* Verschieben Sie das name Div etwas nach oben */
+        }
+        .occupation {
+            top: 65%; /* Verschieben Sie das occupation Div etwas nach unten */
+        }
+    }
+
+    @media (max-width: 600px) {
+        .name {
+            font-size: 5vw;
+        }
+        .occupation {
+            font-size: 0.6em; /* Verschieben Sie das occupation Div etwas nach unten */
+        }
+    }
        
     </style>
 </head>
