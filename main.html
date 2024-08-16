@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Moving Shapes</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #021526;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+        }
+
+        .shape {
+            position: absolute;
+            width: 200px;
+            height: 50px;
+            background-color: #03346E;
+            opacity: .1;
+            animation: moveShape linear;
+            border-radius: 15px; /* Abgerundete Ecken */
+        }
+
+        @keyframes moveShape {
+            from {
+                transform: translateX(-250px);
+            }
+            to {
+                transform: translateX(calc(100vw + 100px));
+            }
+        }
+
+        @keyframes pulsate {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        @keyframes explode {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(3);
+                opacity: 0;
+            }
+        }
+
+        /* .firework {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background-color: #fff;
+            border-radius: 50%;
+            animation: explode 1s ease-out forwards;
+        } */
+
+        .name {
+            position: absolute;
+            color: #E2E2B6;
+            font-size: 3em;
+            font-weight: thin;
+            font-family: 'Helvetica Neue', sans-serif;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulsate 12s infinite;
+
+        }
+        
+        .occupation, .work {
+            font-size: 1.3em;
+            font-weight: bold;
+            opacity: 0.15;
+            color: #6EACDA;
+            font-family: 'Helvetica Neue', sans-serif;
+        }
+       
+    </style>
+</head>
+<body>
+
+
+<div id="container"></div>
+<div class="name">Julius Gassert</div>
+<div class="occupation">Physics student @ 
+    <a href="https://www.lmu.de" target="_blank" style="color: inherit; text-decoration: none;">
+    LMU Munich
+    </a>
+    
+    <br>
+    Researching @ 
+    <a href="https://www.usm.uni-muenchen.de" target="_blank" style="color: inherit; text-decoration: none;">
+    USM
+    </a>
+
+    <br>
+    Community Engagement @ 
+    <a href="https://www.grafingerjugendorchester.de" target="_blank" style="color: inherit; text-decoration: none;">
+    GJO
+    </a>
+</div>
+
+<script>
+    function getRandomSize() {
+        const width = Math.random() * 200 + 50; // Breite zwischen 50px und 250px
+        const height = Math.random() * 100 + 20; // Höhe zwischen 20px und 120px
+        return { width, height };
+    }
+
+    function createShape() {
+        const shape = document.createElement('div');
+        shape.className = 'shape';
+
+        // Set random position, size, and color
+        const { width, height } = getRandomSize();
+        shape.style.width = `${width}px`;
+        shape.style.height = `${height}px`;
+        shape.style.top = `${Math.random() * 100}vh`;
+        shape.style.left = '-100px'; // Start off-screen
+
+        // Set random duration
+        const duration = Math.random() * 5 + 10;
+        shape.style.animationDuration = `${duration}s`;
+
+        document.getElementById('container').appendChild(shape);
+
+        // Remove shape after animation is complete
+        setTimeout(() => {
+            shape.remove();
+        }, duration * 1000);
+    }
+
+    function createFirework() {
+        const firework = document.createElement('div');
+        firework.className = 'firework';
+        firework.style.top = `${Math.random() * 100}vh`;
+        firework.style.left = `${Math.random() * 100}vw`;
+
+        document.body.appendChild(firework);
+
+        // Remove firework after animation is complete
+        setTimeout(() => {
+            firework.remove();
+        }, 1000);
+    }
+
+    // Create shapes at intervals
+    setInterval(createShape, 1000);
+    // Create fireworks at intervals
+    setInterval(createFirework, 500);
+</script>
+</body>
+</html>
